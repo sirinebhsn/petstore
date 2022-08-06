@@ -83,10 +83,10 @@ export default function Pets(props) {
                         />
                         <div className="card-body">
                             <h5 className="card-title">{pet.name}</h5>
-                            <p className="card-text">{pet.status}</p>
+                            <p className="card-text"> <span className="badge bg-light text-dark">{pet.status}</span></p>
                             <p> Catgory: {pet?.category?.name}</p>
-                           
-                                        <p> Tags: {pet?.tags[0]?.name}</p>
+
+                            <p> <span className='badge  bg-info text-dark'>#{pet?.tags[0]?.name}</span></p>
                             <span onClick={() => {
 
                                 swalWithBootstrapButtons.fire({
