@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+import { Carousel } from 'react-bootstrap';
 import { Edit3, Trash2 } from 'react-feather';
 import Swal from 'sweetalert2'
+import Navbar from '../Navbar';
 
 export default function Pets(props) {
 
@@ -61,6 +63,19 @@ export default function Pets(props) {
         fetchPetsByStatus();
     }, []);
     return (
+<Fragment>
+    <Navbar/>
+        <Carousel>
+        <div className="carousel-item active" data-bs-interval="10000">
+        <img src='https://s3-eu-west-1.amazonaws.com/askremax/856/6ba9d703-50b6-2c18-d850-1e22e8315388.png' style={{width:1300, height:500}} className="d-block w-100" alt="pic"/>
+    
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="https://www.aquariadise.com/wp-content/uploads/2020/04/rosy-barb-at-the-bottom-of-aquarium.jpg"style={{width:1300, height:500}}  className="d-block w-100" alt="..."/>
+</div>
+    </Carousel>
+      <br/>
+   
         <div className="row">
 
             {loading && <h1>Loading</h1>}
@@ -131,5 +146,5 @@ export default function Pets(props) {
                     </div>
                 ))}
         </div>
-    );
+        </Fragment>);
 };
