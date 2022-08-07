@@ -38,7 +38,7 @@ export default function Navbar() {
                                                 <li key='av'><Link className="dropdown-item" to='/pets'>Available Pets</Link></li>
 
                                                 <li key='pen'><Link className="dropdown-item" to="/pending">Pending Pets</Link></li>
-                                                <li key='sol'><a className="dropdown-item" href="#">Sold Pets</a></li>
+                                                <li key='sol'><Link className="dropdown-item" to="/sold">Sold Pets</Link></li>
 
                                             </ul>
                                     

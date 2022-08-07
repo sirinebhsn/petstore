@@ -94,7 +94,7 @@ const handleUpdate = () => {
                         <option value={pet?.status} >{pet.status}</option>
                         <option value="available">Available</option>
                         <option value="pending">Pending</option>
-                        <option value="Sold">Sold</option>
+                        <option value="sold">Sold</option>
 
                     </select><br />
 
