@@ -1,11 +1,12 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Modal } from 'react-bootstrap';
-import { Edit3, Trash2 } from 'react-feather';
+import { Edit3, Trash2, Image } from 'react-feather';
 import Swal from 'sweetalert2'
 import Carou from '../Carousel';
 import { Footer } from '../Footer';
 import Navbar from '../Navbar';
 import EditModal from './EditModal';
+import Upload from './Upload';
 
 export default function Sold(props) {
 
@@ -15,6 +16,18 @@ export default function Sold(props) {
     const [loading, setLoading] = useState(true);
     const [selectedPet, setSelectedPet] = useState();
     const [showModal, setShowModal] = useState(false);
+    const [showUpload, setUpload] = useState(false);
+    const upload = async (petId) => {
+        setSelectedPet(petId)
+        setUpload(true)
+
+        const result = await fetch(
+            `${url}/${petId}`,
+            {
+                method: "GET",
+            }
+        );
+    }
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -47,18 +60,18 @@ export default function Sold(props) {
             setLoading(false);
         }
     };
-    const getPet= async (petId) => {
+    const getPet = async (petId) => {
         setSelectedPet(petId)
         setShowModal(true)
 
-            const result = await fetch(
-                `${url}/${petId}`,
-                {
-                    method: "GET",
-                }
-            );
-            console.log(petId)
-            const data = await result.json();
+        const result = await fetch(
+            `${url}/${petId}`,
+            {
+                method: "GET",
+            }
+        );
+        console.log(petId)
+        const data = await result.json();
     }
     const deletePet = async (petId) => {
         try {
@@ -87,11 +100,11 @@ export default function Sold(props) {
             <Carou />
 
             <br />
-            <br/>
+            <br />
             <h4 className="text-center" >Solding Pets List</h4>
-          
 
-            <div className="row">
+
+            <div className="row" style={{justifyContent: 'center'}}>
 
                 {loading && <h1>Loading</h1>}
                 {errorState && errorState}
@@ -117,6 +130,9 @@ export default function Sold(props) {
                                 <p> Catgory: {pet?.category?.name}</p>
 
                                 <p> <span className='badge  bg-info text-dark'>#{pet?.tags[0]?.name}</span></p>
+                                <span onClick={() => upload(pet.id)}>
+                                    <Image size={20} color="#06A2A2" />
+                                </span>&nbsp;
                                 <span onClick={() => {
 
                                     swalWithBootstrapButtons.fire({
@@ -161,14 +177,22 @@ export default function Sold(props) {
                         </div>
                     ))}
             </div>
-            <Footer/>
+            <Footer />
             <Modal show={showModal} >
-           <Modal.Header closeButton>
-             <Modal.Title>Edit Pet</Modal.Title>
-           </Modal.Header>
-           <Modal.Body>
-             <EditModal petId={selectedPet}/>
-           </Modal.Body>
-         </Modal>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Pet</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <EditModal petId={selectedPet} />
+                </Modal.Body>
+            </Modal>
+            <Modal show={showUpload} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Upload Picture</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Upload petId={selectedPet} />
+                </Modal.Body>
+            </Modal>
         </Fragment>);
 };
