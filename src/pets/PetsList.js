@@ -51,31 +51,31 @@ export default function Pets(props) {
             setLoading(false);
         }
     };
-    const getPet= async (petId) => {
+    const getPet = async (petId) => {
         setSelectedPet(petId)
         setShowModal(true)
 
-            const result = await fetch(
-                `${url}/${petId}`,
-                {
-                    method: "GET",
-                }
-            );
-            console.log(petId)
-            const data = await result.json();
+        const result = await fetch(
+            `${url}/${petId}`,
+            {
+                method: "GET",
+            }
+        );
+        console.log(petId)
+        const data = await result.json();
     }
-    const upload= async (petId) => {
+    const upload = async (petId) => {
         setSelectedPet(petId)
         setUpload(true)
 
-            const result = await fetch(
-                `${url}/${petId}`,
-                {
-                    method: "GET",
-                }
-            );
-            console.log(petId)
-            const data = await result.json();
+        const result = await fetch(
+            `${url}/${petId}`,
+            {
+                method: "GET",
+            }
+        );
+        console.log(petId)
+        const data = await result.json();
     }
     const deletePet = async (petId) => {
         try {
@@ -104,11 +104,11 @@ export default function Pets(props) {
             <Carou />
 
             <br />
-            <br/>
+            <br />
             <h4 className="text-center" >Available Pets List</h4>
-          
 
-            <div className="row">
+
+            <div className="row" style={{justifyContent: 'center'}}>
 
                 {loading && <h1>Loading</h1>}
                 {errorState && errorState}
@@ -135,7 +135,14 @@ export default function Pets(props) {
                                 <p className="card-text"> <span className="badge bg-light text-dark">{pet.status}</span></p>
                                 <p> Catgory: {pet?.category?.name}</p>
 
-                                <p> <span className='badge  bg-info text-dark'>#{pet?.tags[0]?.name}</span></p>
+                                <p> <span className='badge  bg-info text-dark'>#{pet?.tags?.name}</span></p>
+
+                                <span onClick={() => getPet(pet.id)}>
+                                    <Edit3 size={20} color="#0681A2" />
+                                </span>&nbsp;
+                                <span onClick={() => upload(pet.id)}>
+                                    <Image size={20} color="#06A2A2" />
+                                </span>
                                 <span onClick={() => {
 
                                     swalWithBootstrapButtons.fire({
@@ -171,36 +178,30 @@ export default function Pets(props) {
                                     })
                                 }}
                                 >
-                                    <Trash2 color='red' />
+                                    <Trash2 size={20} color='#A20617' />
                                 </span>&nbsp;
-                                <span onClick={() => getPet(pet.id)}>
-                                    <Edit3 size={20} color="green" />
-                                </span>&nbsp;
-                                <span onClick={() => upload(pet.id)}>
-                                    <Image size={20} color="green" />
-                                </span>
                             </div>
                         </div>
                     ))}
             </div>
-            <Footer/>
+            <Footer />
             <Modal show={showModal} onHide={handleClose}>
-                
-           <Modal.Header closeButton >
-             <Modal.Title>Edit Pet</Modal.Title>
-           </Modal.Header>
-           <Modal.Body>
-             <EditModal petId={selectedPet}/>
-           </Modal.Body>
-         </Modal>
-         <Modal show={showUpload} >
-           <Modal.Header closeButton>
-             <Modal.Title>Upload Picture</Modal.Title>
-           </Modal.Header>
-           <Modal.Body>
-             <Upload petId={selectedPet}/>
-           </Modal.Body>
-         </Modal>
+
+                <Modal.Header closeButton >
+                    <Modal.Title>Edit Pet</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <EditModal petId={selectedPet} />
+                </Modal.Body>
+            </Modal>
+            <Modal show={showUpload} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Upload Picture</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Upload petId={selectedPet} />
+                </Modal.Body>
+            </Modal>
         </Fragment>
-        );
+    );
 };
