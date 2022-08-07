@@ -28,6 +28,12 @@ export default function Sold(props) {
             }
         );
     }
+    function close(){
+        setUpload(false)
+    }
+    function closeModal(){
+        setShowModal(false)
+    }
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -178,7 +184,7 @@ export default function Sold(props) {
                     ))}
             </div>
             <Footer />
-            <Modal show={showModal} >
+            <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Pet</Modal.Title>
                 </Modal.Header>
@@ -186,7 +192,7 @@ export default function Sold(props) {
                     <EditModal petId={selectedPet} />
                 </Modal.Body>
             </Modal>
-            <Modal show={showUpload} >
+            <Modal show={showUpload} onHide={close}>
                 <Modal.Header closeButton>
                     <Modal.Title>Upload Picture</Modal.Title>
                 </Modal.Header>

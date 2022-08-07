@@ -8,6 +8,9 @@ export default function Navbar() {
     function handleShow() {
         setShow(true)
     }
+    function close() {
+        setShow(false)
+    }
 
     return (
         <Fragment>
@@ -55,7 +58,7 @@ export default function Navbar() {
                     </nav>
                 </header>
             </div>
-            <Modal show={show} >
+            <Modal show={show} onHide={close}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add New Pet</Modal.Title>
                 </Modal.Header>

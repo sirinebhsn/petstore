@@ -18,6 +18,10 @@ export default function Pets(props) {
     const [showModal, setShowModal] = useState(false);
     const [showUpload, setUpload] = useState(false);
     const handleClose = () => setShowModal(false);
+    function close() {
+        setUpload(false)
+    }
+
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -194,7 +198,7 @@ export default function Pets(props) {
                     <EditModal petId={selectedPet} />
                 </Modal.Body>
             </Modal>
-            <Modal show={showUpload} >
+            <Modal show={showUpload} onHide={close}>
                 <Modal.Header closeButton>
                     <Modal.Title>Upload Picture</Modal.Title>
                 </Modal.Header>
