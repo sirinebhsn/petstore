@@ -84,9 +84,20 @@ const handleUpdate = () => {
         
 
               <label for="name">Pet Name</label>
-              <input type="text"  id="name" defaultValue={pet?.name} onChange={(e) => setName(e.target.value)}/><br />
+              <input type="text"  className="form-control" id="name" defaultValue={pet?.name} onChange={(e) => setName(e.target.value)}/><br />
+              <label for="tags">Tags</label>
+              <input type="text" className="form-control" id="name" defaultValue={pet?.tags?.name} onChange={(e) => setName(e.target.value)}/><br />
+              <label for="catgory">Category</label>
+              <input type="text" className="form-control" id="name" defaultValue={pet?.category?.name} onChange={(e) => setName(e.target.value)}/><br />
+              <label for="catgory">Status</label>
+              <select id="status" className="form-select form-select-md" aria-label=".form-select-sm example" >
+                        <option value={pet?.status} >{pet.status}</option>
+                        <option value="available">Available</option>
+                        <option value="pending">Pending</option>
+                        <option value="Sold">Sold</option>
 
-           
+                    </select><br />
+
        
           <Button color='primary' className='me-1'onClick={handleUpdate}>
             Edit

@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import { Edit3, Trash2, Image } from 'react-feather';
 import Swal from 'sweetalert2'
 import Carou from '../Carousel';
+import { Footer } from '../Footer';
 import Navbar from '../Navbar';
 import EditModal from './EditModal';
 import Upload from './Upload';
@@ -16,6 +17,8 @@ export default function Pets(props) {
     const [selectedPet, setSelectedPet] = useState();
     const [showModal, setShowModal] = useState(false);
     const [showUpload, setUpload] = useState(false);
+    const handleClose = () => setShowModal(false);
+
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -180,8 +183,10 @@ export default function Pets(props) {
                         </div>
                     ))}
             </div>
-            <Modal show={showModal} >
-           <Modal.Header closeButton>
+            <Footer/>
+            <Modal show={showModal} onHide={handleClose}>
+                
+           <Modal.Header closeButton >
              <Modal.Title>Edit Pet</Modal.Title>
            </Modal.Header>
            <Modal.Body>
@@ -196,5 +201,6 @@ export default function Pets(props) {
              <Upload petId={selectedPet}/>
            </Modal.Body>
          </Modal>
-        </Fragment>);
+        </Fragment>
+        );
 };

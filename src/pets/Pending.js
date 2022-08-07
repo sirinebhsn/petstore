@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import { Edit3, Trash2 } from 'react-feather';
 import Swal from 'sweetalert2'
 import Carou from '../Carousel';
+import { Footer } from '../Footer';
 import Navbar from '../Navbar';
 import EditModal from './EditModal';
 
@@ -160,6 +161,7 @@ export default function Pending(props) {
                         </div>
                     ))}
             </div>
+            <Footer/>
             <Modal show={showModal} >
            <Modal.Header closeButton>
              <Modal.Title>Edit Pet</Modal.Title>
