@@ -1,10 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Modal } from 'react-bootstrap';
-import { Edit3, Trash2 } from 'react-feather';
+import { Edit3, Trash2, Image } from 'react-feather';
 import Swal from 'sweetalert2'
 import Carou from '../Carousel';
 import Navbar from '../Navbar';
 import EditModal from './EditModal';
+import Upload from './Upload';
 
 export default function Pets(props) {
 
@@ -14,6 +15,7 @@ export default function Pets(props) {
     const [loading, setLoading] = useState(true);
     const [selectedPet, setSelectedPet] = useState();
     const [showModal, setShowModal] = useState(false);
+    const [showUpload, setUpload] = useState(false);
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -59,6 +61,19 @@ export default function Pets(props) {
             console.log(petId)
             const data = await result.json();
     }
+    const upload= async (petId) => {
+        setSelectedPet(petId)
+        setUpload(true)
+
+            const result = await fetch(
+                `${url}/${petId}`,
+                {
+                    method: "GET",
+                }
+            );
+            console.log(petId)
+            const data = await result.json();
+    }
     const deletePet = async (petId) => {
         try {
             const result = await fetch(
@@ -71,7 +86,7 @@ export default function Pets(props) {
             const data = await result.json();
             if (data.code === 200) {
                 alert("deleted");
-                fetchPetsByStatus();
+                window.location.reload()
             }
         } catch (error) {
             throw new Error(error);
@@ -112,6 +127,8 @@ export default function Pets(props) {
                             />
                             <div className="card-body">
                                 <h5 className="card-title">{pet.name}</h5>
+                                <h5 className="card-title">{pet.id}</h5>
+
                                 <p className="card-text"> <span className="badge bg-light text-dark">{pet.status}</span></p>
                                 <p> Catgory: {pet?.category?.name}</p>
 
@@ -152,9 +169,12 @@ export default function Pets(props) {
                                 }}
                                 >
                                     <Trash2 color='red' />
-                                </span>
+                                </span>&nbsp;
                                 <span onClick={() => getPet(pet.id)}>
                                     <Edit3 size={20} color="green" />
+                                </span>&nbsp;
+                                <span onClick={() => upload(pet.id)}>
+                                    <Image size={20} color="green" />
                                 </span>
                             </div>
                         </div>
@@ -166,6 +186,14 @@ export default function Pets(props) {
            </Modal.Header>
            <Modal.Body>
              <EditModal petId={selectedPet}/>
+           </Modal.Body>
+         </Modal>
+         <Modal show={showUpload} >
+           <Modal.Header closeButton>
+             <Modal.Title>Upload Picture</Modal.Title>
+           </Modal.Header>
+           <Modal.Body>
+             <Upload petId={selectedPet}/>
            </Modal.Body>
          </Modal>
         </Fragment>);

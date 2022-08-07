@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Form, FormLabel, Row } from "react-bootstrap";
+import Swal from 'sweetalert2'
 
 
 
@@ -8,9 +9,8 @@ export default function Add() {
     const [imgData, setImgData] = useState('https://www.cdc.gov/healthypets/images/pets/cute-dog-headshot.jpg');
     const [name, setName] = useState('')
     const [status, setStatus] = useState('')
-    const [photoUrls, setImage] = useState([]);
 
-    const onChangePicture = e => {
+    /*const onChangePicture = e => {
         if (e.target.files[0]) {
             console.log("picture: ", e.target.files);
             setImage(e.target.files[0]);
@@ -22,12 +22,11 @@ export default function Add() {
             reader.readAsDataURL(e.target.files[0]);
         }
 
-    };
+    };*/
     const addPet = async () => {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('status', status);
-        formData.append('photoUrls', photoUrls);
 
         let result = await fetch(`https://petstore.swagger.io/v2/pet`, {
 
@@ -43,7 +42,6 @@ export default function Add() {
 
                     name: name,
                     status: status,
-                    photoUrls: photoUrls
                 }
                 ),
                
@@ -52,8 +50,12 @@ export default function Add() {
 
         const data = await result.json();
         console.log(data)
-        if (result.code == 200) {
-            alert('ok')
+        if (result.ok) {
+            new Swal("Success", "Pet added Successfully", "success");
+            window.location.reload()
+
+
+            window.location.reload()
         }
 
     }
@@ -70,11 +72,13 @@ export default function Add() {
                 <Col>
 
                     <FormLabel>Status</FormLabel>
-                    <select className="form-select form-select-md" aria-label=".form-select-sm example">
+                    <select id="status" className="form-select form-select-md" aria-label=".form-select-sm example" 
+                    onChange={(e)=>setStatus(e.target.value)}>
                         <option >Select Status</option>
-                        <option value="Available">Available</option>
-                        <option value="Pending">Pending</option>
+                        <option value="available">Available</option>
+                        <option value="pending">Pending</option>
                         <option value="Sold">Sold</option>
+
                     </select><br />
 
                 </Col>
@@ -84,7 +88,7 @@ export default function Add() {
 
                     <FormLabel>Category</FormLabel>
                     <select className="form-select form-select-md" aria-label=".form-select-sm example">
-                        <option>Select Status</option>
+                        <option>Select Category</option>
                         <option value="Dogs">Dogs</option>
                         <option value="Cats">Cats</option>
                         <option value="Fishs">Fishs</option>
@@ -103,10 +107,10 @@ export default function Add() {
                 <div className='d-flex align-items-end mt-75 ms-1'>
                     <div>
                         <div className="previewProfilePic">
-                            <img className="owner-picture" style={{ width: 150, height: 150 }} src={imgData} />
+                            <img  style={{ width: 150, height: 150 }} src={imgData} />
                         </div>
                         <br />
-                        <input id="photoUrls" type="file" onChange={onChangePicture} />
+                        <input id="photoUrls" type="file" />
 
                        
                     </div>
