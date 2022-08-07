@@ -6,7 +6,7 @@ import Carou from '../Carousel';
 import Navbar from '../Navbar';
 import EditModal from './EditModal';
 
-export default function Pets(props) {
+export default function Pending(props) {
 
     const url = "https://petstore.swagger.io/v2/pet";
     const [pets, setPets] = useState([]);
@@ -25,7 +25,7 @@ export default function Pets(props) {
         setLoading(true);
         try {
             const response = await fetch(
-                `${url}/findByStatus?status=${status || "available"}`,
+                `${url}/findByStatus?status=${status || "pending"}`,
                 {
                     method: "GET",
                     mode: "cors",
@@ -87,7 +87,7 @@ export default function Pets(props) {
 
             <br />
             <br/>
-            <h5>Available Pets List</h5>
+            <h4 className="text-center" >Pending Pets List</h4>
           
 
             <div className="row">
